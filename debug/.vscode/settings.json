@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.js": "javascriptreact",
+        "array": "c",
+        "string": "c",
+        "string_view": "c",
+        "bitset": "c",
+        "vector": "c",
+        "memory": "c",
+        "optional": "c",
+        "system_error": "c",
+        "typeindex": "c",
+        "variant": "c"
+    }
+}

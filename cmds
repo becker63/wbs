@@ -1,0 +1,1 @@
+gcc main.c httpup.c -lcrypto -lssl -o main && ./main
