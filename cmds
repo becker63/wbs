@@ -1,1 +1,3 @@
-gcc main.c httpup.c -lcrypto -lssl -o main && ./main
+gcc main.c httpup.c ./libs/b64/buffer.c ./libs/b64/encode.c -lcrypto -lssl -o main && ./main
+
+gcc httpupgradedebug.c ./teeny-sha1/teeny-sha1.c ./b64/buffer.c ./b64/encode.c -o httpupgradedebug -lcrypto -lssl && ./httpupgradedebug

@@ -61,10 +61,8 @@ int main(int argc, char const* argv[])
     printf("%s", httpres);
     send(new_socket, httpres, strlen(httpres), 0);
 
-    valread = read(new_socket, buffer, 1024);
-    printf("%x", buffer);
+    
     
 
 }
 
-dasdasdasdo

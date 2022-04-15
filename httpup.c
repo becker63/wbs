@@ -7,6 +7,7 @@ char serverHttpGen(char *wbkey, char *httpv, char *out){
 
     strcpy(out, "HTTP/");
     strcat(out, httpv);
+    strcat(out, " Switching Protocols");
     strcat(out, "\r\n");
     strcat(out, "Upgrade: websocket\r\nConnection: Upgrade\r\n");
     strcat(out, "Sec-WebSocket-Accept: ");
