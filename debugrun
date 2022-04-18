@@ -1,0 +1,13 @@
+#!/bin/bash
+clear && export PS1='' && cd ~/code/wbs && gcc main.c httpup.c ./libs/b64/buffer.c ./libs/b64/encode.c -lcrypto -lssl -lm -o  main && echo  && commandline.py --leak-check=full --track-origins=yes ./main  & sleep 0.3 && ./client 2>&1 /dev/null
+
+
+
+
+
+
+#clear && cd ~/code/wbs && gcc main.c httpup.c ./libs/b64/buffer.c ./libs/b64/encode.c -lcrypto -lssl -lm -o  main && echo  && commandline.py --leak-check=full --track-origins=yes ./main & sudo setsid sh -c "TERM=alacritty sudo -H -u becker clear && /home/becker/code/wbs/client <> /dev/pts/1 >&0 2>&1"
+
+
+
+

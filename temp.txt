@@ -1,16 +1,16 @@
-
+#This is what a good handshake looks like
 
 GET / HTTP/1.1
 Host: 0.0.0.0:8080
 Connection: Upgrade
 Upgrade: websocket
 Sec-WebSocket-Version: 13
-Sec-WebSocket-Key: KDyMfcPSiFuM7DfDogLKcA==
+Sec-WebSocket-Key: KDyMfcPSiFuM7DfDogLKcA==   <- this key will be used in accept
 
 HTTP/1.1 101 Switching Protocols
 Upgrade: websocket
 Connection: Upgrade
-Sec-WebSocket-Accept: 4EaeSCkuOGBy+rjOSJSMV+VMoC0=
+Sec-WebSocket-Accept: 4EaeSCkuOGBy+rjOSJSMV+VMoC0=    <- sha + base64 encoded client key
 WebSocket-Origin: file://
 WebSocket-Location: ws://192.168.43.135:12345/
 
@@ -20,11 +20,16 @@ WebSocket-Location: ws://192.168.43.135:12345/
 
 #client send
 
-  81           8c             e1 7e 8e b9       95 1b fd cd c1 13 eb ca 92 1f e9 dc
-  /\           /\             \         /       /\
-opcode   load length (23)     xor mask key     all the rest is data
+  81                    8c             e1 7e 8e b9       95 1b fd cd c1 13 eb ca 92 1f e9 dc
+  /\                    /\             \         /       /\
+opcode (string)    pload length (23)   xor mask key     all the rest is data
 
 decoded xor = "test message"
 
 
-Welcome, 192.168.43.1 !
+
+
+
+
+
+

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <openssl/sha.h>
-#include "./b64/b64.h"
+#include "../libs/b64/b64.h"
  
  
 int main(){

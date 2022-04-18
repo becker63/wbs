@@ -11,7 +11,7 @@ extern int mainparse(char *pch, char *out);
 
 #include <sys/types.h>
 
-unsigned char * base64_encode(const unsigned char *src, size_t len,
+unsigned char * base64_encode2(const unsigned char *src, size_t len,
 			      size_t *out_len);
-unsigned char * base64_decode(const unsigned char *src, size_t len,
+unsigned char * base64_decode2(const unsigned char *src, size_t len,
 			      size_t *out_len);

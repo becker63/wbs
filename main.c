@@ -1,4 +1,6 @@
 #include "wb.h"
+#include <arpa/inet.h>
+#include <string.h>
 #define PORT 8080
 
 int main(int argc, char const* argv[])
@@ -6,7 +8,7 @@ int main(int argc, char const* argv[])
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int opt = 1;
-    int addrlen = sizeof(address);
+    unsigned int addrlen = sizeof(address);
     char buffer[1024] = { 0 };
 
     // Creating socket file descriptor
@@ -48,20 +50,28 @@ int main(int argc, char const* argv[])
     valread = read(new_socket, buffer, 1024);
 
 
-    char* pch = NULL;
-    //printf("%s\n", buffer);
-    //send(new_socket, hello, strlen(hello), 0);
-    //printf("Hello message sent\n");
+    char* pch;
 
-    pch = strtok(buffer, "\r\n");
-    char httpres[500] = "";
+    //create copy of socket buffer so we dont mess with it when parsing
+    char parserbuffer[1024];
+    strcpy(parserbuffer, buffer);
+    pch = strtok(parserbuffer, "\r\n");
+    
+    
+    //parse
+    char httpres[1024] = "";
     mainparse(pch, httpres);
 
-
-    printf("%s", httpres);
+    
     send(new_socket, httpres, strlen(httpres), 0);
 
     
+
+    char buffer2[1024] = { 0 };
+
+    valread = read(new_socket, buffer2, 1024);
+    
+
     
 
 }
