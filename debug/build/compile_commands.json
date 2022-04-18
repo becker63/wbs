@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/becker/code/wbs/debug/build",
-  "command": "/bin/c++ -g -o CMakeFiles/httpupgradedebug.dir/main.cpp.o -c /home/becker/code/wbs/debug/main.cpp",
-  "file": "/home/becker/code/wbs/debug/main.cpp"
-}
-]
