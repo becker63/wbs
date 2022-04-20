@@ -143,7 +143,7 @@ int mainparse(char *pch, char *out) {
     //only get http version
     char sub1[50] = "GET / HTTP/";
     removesub(httppro, sub1);
-    puts(httppro);
+    //puts(httppro);
 
     //remove 'Sec-WebSocket-Key: ' from str for key
     char sub2[50] = "Sec-WebSocket-Key: ";
@@ -168,7 +168,7 @@ int mainparse(char *pch, char *out) {
 
     serverHttpGen(data, httppro, out);
     
-    printf("\n\n%s", out);
+    //printf("\n\n%s", out);
     
 
     return 0;

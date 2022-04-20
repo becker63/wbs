@@ -17,7 +17,6 @@ WebSocket-Location: ws://192.168.43.135:12345/
 
 
 
-
 #client send
 
   81                    8c             e1 7e 8e b9       95 1b fd cd c1 13 eb ca 92 1f e9 dc
@@ -29,6 +28,34 @@ decoded xor = "test message"
 
 
 
+#xor decoding
+
+key: 
+e1: 11100001
+7e: 01111110
+8e: 10001110
+b9: 10111001
+full: 11100001 01111110 10001110 10111001
+
+char ("test")
+t: 01110100
+e: 01100101
+s: 01110011
+t: 01110100
+full: 01110100 01100101 01110011 01110100
+
+xor op:
+
+(t and e1)
+e1:    11100001
+t:     01110100
+XOR:   10010101
+
+/\
+||
+do for each char
+
+full xor: 00010 01010 10001 10111 11111 01110 01101
 
 
 

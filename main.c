@@ -3,6 +3,21 @@
 #include <string.h>
 #define PORT 8080
 
+int ahex2int(char a, char b){
+
+    a = (a <= '9') ? a - '0' : (a & 0x7) + 9;
+    b = (b <= '9') ? b - '0' : (b & 0x7) + 9;
+
+    return (a << 4) + b;
+}
+
+void append_str(char str[] , char c){
+     auto char arr[2] = {c , '\0'};
+     strcat(str , arr);
+}
+
+
+
 int main(int argc, char const* argv[])
 {
     int server_fd, new_socket, valread;
@@ -61,18 +76,55 @@ int main(int argc, char const* argv[])
     //parse
     char httpres[1024] = "";
     mainparse(pch, httpres);
-
+    //printf("\n%s\n", httpres);
     
     send(new_socket, httpres, strlen(httpres), 0);
 
     
 
-    char buffer2[1024] = { 0 };
+    char hexbuf[50];
 
-    valread = read(new_socket, buffer2, 1024);
+
+    int number = 0;
+    
+    int i2 = 0;
+    while ( i2 != 4 ) {
+        i2++;
+        read(new_socket, (char*)&number, sizeof(number));
+        number = ntohl(number);
+        sprintf(&hexbuf[strlen(hexbuf)],"%x", number);
+    }
+
+    char hex[50];
+
+    for(int i = 0; hexbuf[i]; i++) {
+        
+        if(i % 2 == 0) {
+            sprintf(&hex[strlen(hex)], "0x%c%c ", hexbuf[i],hexbuf[i + 1]);
+        }
+        //puts("\n");
+        //printf("%c", hexbuf[i]);
+        
+
+    }
     
 
-    
+    token = strtok(hex, " ");
+     while (token ! = NULL ) {
+        token = strtok(NULL, " ");
+        printf("%s", token);
+  /*do token processing*/
+  }
 
+
+
+
+
+
+
+
+
+
+    
 }
 

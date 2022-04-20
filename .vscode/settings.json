@@ -3,6 +3,9 @@
         "*.js": "javascriptreact",
         "array": "c",
         "string": "c",
-        "string_view": "c"
+        "string_view": "c",
+        "inet.h": "c",
+        "wb.h": "c",
+        "stdio.h": "c"
     }
 }
