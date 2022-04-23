@@ -1,21 +1,38 @@
 #include "wb.h"
 #include <arpa/inet.h>
 #include <string.h>
+#include <assert.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xatom.h>
 #define PORT 8080
 
-int ahex2int(char a, char b){
+int parse(unsigned char* in, size_t len, char **a, char **b){
+  char new[50] = "";
+  //iterate over string
+  int i;
+  for (i = 0; i < len; i++) {
+    char ptr = in[i]; 
+    if (isdigit(in[i])) {
+        strncat(new, &ptr, 1);
+    }
 
-    a = (a <= '9') ? a - '0' : (a & 0x7) + 9;
-    b = (b <= '9') ? b - '0' : (b & 0x7) + 9;
+    char j = ',';
 
-    return (a << 4) + b;
+    if ( in[i] == j ) {
+        strncat(new, &ptr, 1);
+    }
+  }
+
+  char * separator = ",";
+  char * one = strtok(new, separator);
+  char * two = strtok(NULL, "");
+
+
+  *a = one;
+  *b = two;
+
 }
-
-void append_str(char str[] , char c){
-     auto char arr[2] = {c , '\0'};
-     strcat(str , arr);
-}
-
 
 
 int main(int argc, char const* argv[])
@@ -80,51 +97,125 @@ int main(int argc, char const* argv[])
     
     send(new_socket, httpres, strlen(httpres), 0);
 
-    
-
-    char hexbuf[50];
+    while (1 == 1){
 
 
-    int number = 0;
-    
+    unsigned char buf[1000] = {};
+    /* return code of recv gives me the acutual amount of data */
+    int s = recv(new_socket, buf, sizeof(buf),0);
+
+    unsigned char keys[20] = {};
+
+    unsigned char mask[1000] = {};
+
+    char unmask[1000] = {};
+
     int i2 = 0;
-    while ( i2 != 4 ) {
+    int i3 = 0;
+    int i = 0;
+
+    while(i != s){
+        /* get key */
+        if ((i > 1) && (i < 6)){
+        keys[i2] = buf[i];
+        //printf("%x : %i  k\n", keys[i2], i);
         i2++;
-        read(new_socket, (char*)&number, sizeof(number));
-        number = ntohl(number);
-        sprintf(&hexbuf[strlen(hexbuf)],"%x", number);
-    }
 
-    char hex[50];
-
-    for(int i = 0; hexbuf[i]; i++) {
-        
-        if(i % 2 == 0) {
-            sprintf(&hex[strlen(hex)], "0x%c%c ", hexbuf[i],hexbuf[i + 1]);
         }
-        //puts("\n");
-        //printf("%c", hexbuf[i]);
         
+        /* Get mask */
+        if ((i >= 6) && (i < s)){
+        
+            //printf("\n%x : %i  b \n", buf[i], i);
+
+            mask[i3] = buf[i];
+
+            //printf("%x : %i\n", keys[i3], i3);
+
+            i3++;
+
+        }
+        
+        i++;
+    }
+    //puts("\n\n\n");
+    i = 0;
+
+    /* Demask */
+    for (int i = 0; i < s - 6; i++) {
+    unmask[i] = mask[i] ^= keys[i % 4];
+    printf("%c", unmask[i]);
 
     }
+
+    /* add null char at the end so its a string */
+    unmask[s + 1] = '\0';
+    printf("%s", unmask);
+
+
+
+
+
+
+    char *xj;
+    char *yj;
+
+
+    parse(unmask, strlen(unmask), &xj, &yj);
+
+    printf("%s %s \n", xj, yj);
+
+
+    Display *dpy;
+    Window root_window;
+
+    dpy = XOpenDisplay(0);
+
+    root_window = XRootWindow(dpy, 0);
+     
+    XSelectInput(dpy, root_window, KeyReleaseMask);
+
+    XWarpPointer(dpy, None, root_window, 0, 0, 0, 0, xj, yj);
+
+    XFlush(dpy);
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
     
 
-    token = strtok(hex, " ");
-     while (token ! = NULL ) {
-        token = strtok(NULL, " ");
-        printf("%s", token);
-  /*do token processing*/
-  }
-
-
-
-
-
-
-
-
-
-
-    
-}
 

@@ -1,0 +1,2 @@
+#!/bin/bash
+gcc main.c httpup.c ./libs/b64/buffer.c ./libs/b64/encode.c -lX11 -lXi -lcrypto -lssl -o main && ./main

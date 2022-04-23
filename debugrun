@@ -1,5 +1,5 @@
 #!/bin/bash
-clear && export PS1='' && cd ~/code/wbs && gcc main.c httpup.c ./libs/b64/buffer.c ./libs/b64/encode.c -lcrypto -lssl -lm -o  main && echo  && commandline.py --leak-check=full --track-origins=yes ./main  & sleep 0.3 && ./client 2>&1 /dev/null
+clear && export PS1='' && cd ~/code/wbs && gcc main.c httpup.c ./libs/b64/buffer.c ./libs/b64/encode.c -lcrypto -lssl -lm -o  main && ./main  & sleep 0.3 && echo && echo && echo && websocat ws://0.0.0.0:8080 < <(echo 'woah it worked') 2> /dev/null && echo -e '\n\n\n' || true
 
 
 
