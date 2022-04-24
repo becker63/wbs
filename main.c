@@ -5,6 +5,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
+#include<ctype.h>
 #define PORT 8080
 
 int parse(unsigned char* in, size_t len, char **a, char **b){
@@ -144,13 +145,13 @@ int main(int argc, char const* argv[])
     /* Demask */
     for (int i = 0; i < s - 6; i++) {
     unmask[i] = mask[i] ^= keys[i % 4];
-    printf("%c", unmask[i]);
+    //printf("%c", unmask[i]);
 
     }
 
     /* add null char at the end so its a string */
     unmask[s + 1] = '\0';
-    printf("%s", unmask);
+    //printf("%s", unmask);
 
 
 
@@ -163,7 +164,7 @@ int main(int argc, char const* argv[])
 
     parse(unmask, strlen(unmask), &xj, &yj);
 
-    printf("%s %s \n", xj, yj);
+    //printf("Mouse x: (%s) | Mouse y: (%s) \n", xj, yj);
 
 
     Display *dpy;
@@ -175,7 +176,7 @@ int main(int argc, char const* argv[])
      
     XSelectInput(dpy, root_window, KeyReleaseMask);
 
-    XWarpPointer(dpy, None, root_window, 0, 0, 0, 0, xj, yj);
+    XWarpPointer(dpy, None, root_window, 0, 0, 0, 0, atoi(xj), atoi(yj));
 
     XFlush(dpy);
     
